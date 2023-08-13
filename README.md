@@ -15,4 +15,7 @@ main <br>
 git add . <br>
 git commit -m "작업에 대한 comment" <br>
 git push <br>
-해주시면 됩니당
+해주시면 됩니당 <br>
+
+commit 관련 Reference <br>
+https://jane-aeiou.tistory.com/93
