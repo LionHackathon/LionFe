@@ -1,7 +1,7 @@
 # 기본적인 사용방법
 
 1.본인이 작업할 폴더에 git cloning 해주세요. <br>
-git clone "https://github.com/LionHackathon/Project_BE.git" <br> <br>
+git clone "https://github.com/LionHackathon/Hackathon.git" <br> <br>
 2. branch 설정 <br>
 git branch 했을때 *main 만 나올텐데 본인 이름 브랜치 새로 만들어주세요 <br>
 ex) git branch Sungwoo <br>
