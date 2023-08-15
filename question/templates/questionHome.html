@@ -1,0 +1,11 @@
+{% for question in questions.all %}
+    <div>
+        <div>
+            <h1>제목: {{question.question_title}}</h1>
+            <h2>날짜: {{question.question_pub_date}}</h2>
+            <p>{{question.question_content}}</p>
+        </div>
+    </div>
+    <br>
+    <br>
+{%endfor%}
