@@ -4,6 +4,7 @@ from .models import Question
 import json
 from datetime import datetime
 from django.shortcuts import get_object_or_404, render
+from answer.models import Answer
 
 
 
@@ -45,6 +46,5 @@ def get_question_detail_as_json(request, question_id):
         'title': question.question_title,
         'content': question.question_content,
         'pub_date': question.question_pub_date.strftime('%Y-%m-%d %H:%M:%S'),  # 날짜 포맷 지정
-        'answers': [{'id': answer.id, 'content': answer.content} for answer in question.answers.all()]
     }
     return JsonResponse(question_data)
