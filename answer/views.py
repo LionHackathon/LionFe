@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from question.models import Question
 from .models import Answer
@@ -21,3 +21,13 @@ def add_answer(request, question_id):
                 return JsonResponse({"message": "Failed to add answer."}, status=400)
         except Exception as e:
             return JsonResponse({"message": str(e)}, status=500)
+        
+
+def get_answer_detail_as_json(request, answer_id):
+    answer = get_object_or_404(Answer, pk=answer_id)
+    answer_data = {
+        'id': answer.id,
+        'question_id': answer.question.id,
+        'content': answer.content,
+    }
+    return JsonResponse(answer_data)

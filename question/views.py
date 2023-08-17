@@ -5,9 +5,7 @@ import json
 from datetime import datetime
 from django.shortcuts import get_object_or_404, render
 
-def question_detail(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'question_detail.html', {'question': question})
+
 
 class SaveQuestion(View):
     def post(self, request, *args, **kwargs):
@@ -39,3 +37,14 @@ def get_questions_as_json(request):
         for question in questions
     ]
     return JsonResponse({'questions': questions_json})
+
+def get_question_detail_as_json(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    question_data = {
+        'id': question.id,
+        'title': question.question_title,
+        'content': question.question_content,
+        'pub_date': question.question_pub_date.strftime('%Y-%m-%d %H:%M:%S'),  # 날짜 포맷 지정
+        'answers': [{'id': answer.id, 'content': answer.content} for answer in question.answers.all()]
+    }
+    return JsonResponse(question_data)

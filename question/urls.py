@@ -7,7 +7,7 @@ from .views import SaveQuestion
 urlpatterns = [
     path('save-question/', SaveQuestion.as_view(), name='save-question'),
     path('get-question/', views.get_questions_as_json, name='get-question'),
-    path('<int:question_id>/', views.question_detail, name='question_detail'),
+    path('<int:question_id>/', views.get_question_detail_as_json, name='get_question_detail_as_json'),
 
 
 ]
