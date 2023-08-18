@@ -84,5 +84,26 @@
     height: auto;
     display: inline-block;
   }
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color:#D2D8FB;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    height: 60px;
+   
+}
+
+.bottom-bar a {
+    color: white;
+    text-decoration: none;
+}
+
+.bottom-bar i {
+    font-size: 30px;
+}
 
 
