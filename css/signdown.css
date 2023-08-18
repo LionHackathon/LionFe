@@ -8,6 +8,16 @@ body{
     background-color: whitesmoke;
 }
 
+#signdown {
+    font-family: 'Cafe24Ssurround';
+    text-align: center;
+}
 
+#header {
+    font-size: 30px;
+}
+#container {
+    font-size: 25px;
+}
 
 
