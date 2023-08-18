@@ -5,46 +5,48 @@ import json
 from datetime import datetime
 from django.shortcuts import get_object_or_404, render
 from answer.models import Answer
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
+def questions_as_json(request):
+    if request.method == "GET":
+        questions = Question.objects.all()
+        questions_json = [
+            {
+                'id': question.id,
+                'title': question.title,
+                'content': question.content,
+                'createdDate': question.createdDate.strftime('%Y-%m-%d %H:%M:%S')
+            }
+            for question in questions
+        ]
+        return JsonResponse({'questions': questions_json})
 
-
-class SaveQuestion(View):
-    def post(self, request, *args, **kwargs):
+    elif request.method == "POST":
         try:
-            json_data = json.loads(request.body)
-            title = json_data.get("question_title")
-            pub_date = json_data.get("question_pub_date")
-            content = json_data.get("question_content")
+            data = json.loads(request.body.decode('utf-8'))
+            title = data['title']
+            content = data['content']
 
-            if title and pub_date and content:
-                question = Question(title=title, pub_date=datetime.strptime(pub_date, '%Y-%m-%d'), content=content)
-                question.save()
-                return JsonResponse({"message": "Question saved successfully."})
-            else:
-                return JsonResponse({"message": "Failed to save question."}, status=400)
-        except Exception as e:
-            return JsonResponse({"message": str(e)}, status=500)
-        
+            # Create a new question object
+            question = Question(title=title, content=content)
+            question.save()
 
-def get_questions_as_json(request):
-    questions = Question.objects.all()
-    questions_json = [
-        {
-            'id': question.id,
-            'title': question.question_title,
-            'content': question.question_content,
-            'pub_date': question.question_pub_date.strftime('%Y-%m-%d %H:%M:%S')
-        }
-        for question in questions
-    ]
-    return JsonResponse({'questions': questions_json})
+            return JsonResponse({'message': 'Question created successfully'})
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+        except KeyError as e:
+            return JsonResponse({'error': f'Missing key: {str(e)}'}, status=400)
+
+    else:
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 def get_question_detail_as_json(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     question_data = {
         'id': question.id,
-        'title': question.question_title,
-        'content': question.question_content,
-        'pub_date': question.question_pub_date.strftime('%Y-%m-%d %H:%M:%S'),  # 날짜 포맷 지정
+        'title': question.title,
+        'content': question.content,
+        'pub_date': question.createdDate.strftime('%Y-%m-%d %H:%M:%S'),  # 날짜 포맷 지정
     }
     return JsonResponse(question_data)
