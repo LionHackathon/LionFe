@@ -52,7 +52,7 @@
 .w-btn:active {
     transform: scale(0.98);
     box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
-  }
+}
 
 .w-btn-yellow{
     background-color: #FFEE50;
@@ -65,4 +65,4 @@
 .custom-button.clicked {
     background-color: #FFC107;
     color: #FFF;
-  }
+}
