@@ -47,6 +47,6 @@ def get_question_detail_as_json(request, question_id):
         'id': question.id,
         'title': question.title,
         'content': question.content,
-        'pub_date': question.createdDate.strftime('%Y-%m-%d %H:%M:%S'),  # 날짜 포맷 지정
+        'createdDate': question.createdDate.strftime('%Y-%m-%d %H:%M:%S'),  # 날짜 포맷 지정
     }
     return JsonResponse(question_data)

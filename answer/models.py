@@ -8,4 +8,4 @@ class Answer(models.Model):
     content = models.TextField()
 
     def __str__(self):
-        return f"Answer to '{self.question.question_title}'"
+        return f"Answer to '{self.question.title}'"
